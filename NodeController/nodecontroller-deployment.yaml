@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodecontroller
+spec:
+  selector:
+    matchLabels:
+      app: nodecontroller
+  replicas: 1
+  template: 
+    metadata:
+      labels:
+        app: nodecontroller
+        repullhack: b
+    spec:
+      containers:
+      - name: nodecontroller
+        image: simonh88/nodecontroller:latest
+        imagePullPolicy: Always
+        env:
+          - name: DO_API_KEY 
+            valueFrom:
+              secretKeyRef:
+                name: dosecret
+                key: dokey
+      nodeSelector:
+        kubetestrole: master
+
+          

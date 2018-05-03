@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jobcontroller
+spec:
+  selector:
+    matchLabels:
+      app: jobcontroller
+  replicas: 1
+  template: 
+    metadata:
+      labels:
+        app: jobcontroller
+        repullhack: b
+    spec:
+      containers:
+      - name: jobcontroller
+        image: simonh88/jobcontroller:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 4000
+      nodeSelector:
+        kubetestrole: master

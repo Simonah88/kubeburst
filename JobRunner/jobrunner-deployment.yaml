@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jobrunner
+spec:
+  selector:
+    matchLabels:
+      app: jobrunner
+  replicas: 1
+  template: 
+    metadata:
+      labels:
+        app: jobrunner
+        repullhack: b
+    spec:
+      containers:
+      - name: jobrunner
+        image: simonh88/jobrunner:latest
+        imagePullPolicy: Always
+        SecurityContext: privileged 
+        ports:
+        - containerPort: 4000
+        resources:
+          limits:
+           memory: "512Mi"
+           cpu: "750m"
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - jobrunner
+            topologyKey: kubernetes.io/hostname

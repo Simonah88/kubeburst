@@ -1,0 +1,12 @@
+[Unit]
+Description=Joins the worker node into the cluster
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+ExecStart=[REPLACE WITH KUBEADM JOIN FROM MASTER INIT]
+
+[Install]
+WantedBy=multi-user.target

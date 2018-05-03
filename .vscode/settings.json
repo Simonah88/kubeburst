@@ -1,0 +1,11 @@
+{
+    "sync-rsync.remote": "root@165.227.42.185:/root/kubetest",
+    "sync-rsync.exclude": [
+        ".git",
+        ".vscode",
+        "node_modules"
+    ],
+    "sync-rsync.shell": "/usr/bin/ssh",
+    "sync-rsync.onSave": true,
+    "sync-rsync.delete": true
+}
